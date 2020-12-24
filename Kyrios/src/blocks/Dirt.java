@@ -22,7 +22,7 @@ public class Dirt extends Block {
 	
 	public Dirt(LevelState ls, int x, int y, BufferedImage texture) {
 		super(ls, x, y, WIDTH, HEIGHT, FRICTION, texture);
-		jumpPercentageDeficit = 60;
+		jumpPercentageDeficit = 0;
 	}
 
 	@Override
