@@ -9,7 +9,7 @@ import util.Vector2d;
 
 public class Sand extends Block {
 	
-	public static final Color COLOR = Color.ORANGE;
+	public static final Color COLOR = new Color(255, 150, 0);
 	
 	public static final float FRICTION = .9f;
 	

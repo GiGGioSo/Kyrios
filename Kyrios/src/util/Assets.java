@@ -11,7 +11,7 @@ public class Assets {
 	public static BufferedImage GRASS;
 	public static BufferedImage DIRT;
 	public static BufferedImage ICE;
-	public static BufferedImage STONE;
+	public static BufferedImage SAND;
 	public static BufferedImage LEVEL_1;
 	public static BufferedImage LEVEL_2;
 	public static BufferedImage BUTTON_PLAY_ACTIVE, BUTTON_PLAY_INACTIVE;
@@ -27,6 +27,7 @@ public class Assets {
 		GRASS = TERRAIN.getSprite(0, 0);
 		DIRT = TERRAIN.getSprite(1, 0);
 		ICE = TERRAIN.getSprite(2, 0);
+		SAND = TERRAIN.getSprite(3, 0);
 		LEVEL_1 = new Sprite("levels/Level1.png").getSpriteSheet();
 		LEVEL_2 = new Sprite("levels/LevelTest.png").getSpriteSheet();
 		BUTTON_PLAY_INACTIVE = new Sprite("buttons/bottone_prova_inactive.png").getSpriteSheet();

@@ -3,9 +3,7 @@ package util;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import blocks.Block;
-import blocks.Dirt;
-import blocks.Ice;
+import blocks.*;
 import entities.Player;
 import states.LevelState;
 
@@ -64,8 +62,11 @@ public class GameLevelLoader {
 						ls.addBlock(new Dirt(ls, x * Dirt.WIDTH, y * Dirt.HEIGHT, Assets.GRASS));
 					}
 				}
-				if (colorMap[x][y].equals(Ice.COLOR)) { // Aggiungo i blocchi verdi come blocchi di tipo ICE
+				if (colorMap[x][y].equals(Ice.COLOR)) { // Aggiungo i blocchi blu come blocchi di tipo ICE
 					ls.addBlock(new Ice(ls, x * Ice.WIDTH, y * Ice.HEIGHT, Assets.ICE));
+				}
+				if (colorMap[x][y].equals(Sand.COLOR)) { // Aggiungo i blocchi blu come blocchi di tipo ICE
+					ls.addBlock(new Ice(ls, x * Sand.WIDTH, y * Sand.HEIGHT, Assets.SAND));
 				}
 			}
 		}
