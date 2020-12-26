@@ -50,8 +50,7 @@ public class GameLevelLoader {
 				if (colorMap[x][y].equals(Color.BLACK)) { // Aggiungo i blocchi neri come entità di tipo PLAYER
 					ls.addEntity(new Player(ls, x * Block.SIZE, y * Block.SIZE, entityCounter));
 					entityCounter++;
-				}
-				if (colorMap[x][y].equals(Dirt.COLOR)) { // Aggiungo i blocchi verdi come blocchi di tipo DIRT
+				} else if (colorMap[x][y].equals(Dirt.COLOR)) { // Aggiungo i blocchi verdi come blocchi di tipo DIRT
 					if(y > 0) {
 						if(colorMap[x][y-1].equals(Dirt.COLOR)) { // Se il blocco sopra è anch'esso DIRT, allora uso la texture senza erba
 							ls.addBlock(new Dirt(ls, x * Dirt.WIDTH, y * Dirt.HEIGHT, Assets.DIRT));
@@ -61,12 +60,10 @@ public class GameLevelLoader {
 					} else {
 						ls.addBlock(new Dirt(ls, x * Dirt.WIDTH, y * Dirt.HEIGHT, Assets.GRASS));
 					}
-				}
-				if (colorMap[x][y].equals(Ice.COLOR)) { // Aggiungo i blocchi blu come blocchi di tipo ICE
+				} else if (colorMap[x][y].equals(Ice.COLOR)) { // Aggiungo i blocchi blu come blocchi di tipo ICE
 					ls.addBlock(new Ice(ls, x * Ice.WIDTH, y * Ice.HEIGHT, Assets.ICE));
-				}
-				if (colorMap[x][y].equals(Sand.COLOR)) { // Aggiungo i blocchi blu come blocchi di tipo ICE
-					ls.addBlock(new Ice(ls, x * Sand.WIDTH, y * Sand.HEIGHT, Assets.SAND));
+				} else if (colorMap[x][y].equals(Sand.COLOR)) { // Aggiungo i blocchi arancioni come blocchi di tipo SAND
+					ls.addBlock(new Sand(ls, x * Sand.WIDTH, y * Sand.HEIGHT, Assets.SAND));
 				}
 			}
 		}

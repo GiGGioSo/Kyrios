@@ -11,7 +11,7 @@ public class Sand extends Block {
 	
 	public static final Color COLOR = new Color(255, 150, 0);
 	
-	public static final float FRICTION = .9f;
+	public static final float FRICTION = .8f;
 	
 	public static int WIDTH = SIZE;
 	public static int HEIGHT = SIZE;
@@ -22,7 +22,7 @@ public class Sand extends Block {
 
 	public Sand(LevelState ls, int x, int y, BufferedImage texture) {
 		super(ls, x, y, WIDTH, HEIGHT, FRICTION, texture);
-		jumpPercentageDeficit = 60;
+		jumpDeficit = .2f;
 	}
 
 	@Override
