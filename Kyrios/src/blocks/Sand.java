@@ -23,7 +23,7 @@ public class Sand extends Block {
 	public Sand(LevelState ls, int x, int y, BufferedImage texture) {
 		super(ls, x, y, WIDTH, HEIGHT, FRICTION, texture);
 		jumpDeficit = .3f;
-		speedDeficit = .7f;
+		speedDeficit = .55f;
 	}
 
 	@Override
