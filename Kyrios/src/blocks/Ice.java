@@ -23,6 +23,7 @@ public class Ice extends Block {
 	public Ice(LevelState ls, int x, int y, BufferedImage texture) {
 		super(ls, x, y, WIDTH, HEIGHT, FRICTION, texture);
 		jumpDeficit = 0f;
+		speedDeficit = 0f;
 	}
 
 	@Override

@@ -4,11 +4,13 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import blocks.Block;
+import graphics.Animation;
 import graphics.Sprite;
 import input.KeyHandler;
 import input.MouseHandler;
 import states.LevelState;
 import util.RectangleP;
+import util.Util;
 import util.Vector2d;
 
 public abstract class Entity extends RectangleP {
@@ -24,10 +26,23 @@ public abstract class Entity extends RectangleP {
 	protected Sprite sprite;
 
 	protected Vector2d vel;
+
+	//ANIMAZIONI
+	protected Animation[] animations;
+	protected static final int DEFAULT_ANIMATION_DELAY = 8; // durata dell'animazione di default di ogni entity
+	protected static final int MAXIMUM_ANIMATION_DELAY = 20;
 	
+	//MOVEMENT
 	public static final float DEFAULT_JUMP_POWER = 11;
 	
-	protected float jumpPower = 11;
+	protected static final float DEFAULT_LIMIT_SPEED_Y = 15f;
+	protected static final float DEFAULT_LIMIT_SPEED_X = 5f;
+	protected static final float DEFAULT_MINIMUM_SPEED_X = .01f;
+	protected static final float DEFAULT_MINIMUM_SPEED_Y = .01f;
+	
+	protected float jumpPower = DEFAULT_JUMP_POWER;
+	protected float maxSpeedX = DEFAULT_LIMIT_SPEED_X;
+	protected float maxSpeedY = DEFAULT_LIMIT_SPEED_Y;
 
 	protected boolean grounded = false;
 	protected boolean wasGrounded = false;
@@ -54,6 +69,9 @@ public abstract class Entity extends RectangleP {
 	public void collideWithBlocks(ArrayList<Block> b) {
 		RectangleP hitBox = new RectangleP(this);
 		grounded = false; // partiamo dal presupposto che non sia grounded, poi vedremo se è il contrario
+		this.jumpPower = DEFAULT_JUMP_POWER; // resetto queste variabili ogni volta, in caso verranno modificate di nuovo se necessario
+		this.maxSpeedX = DEFAULT_LIMIT_SPEED_X;
+		setAnimationsSpeed(DEFAULT_ANIMATION_DELAY); //resetto la velocità delle animazioni, se servirà verra cambiata
 		
 		// HORIZONTAL COLLISION
 		hitBox.addX(vel.getX()); // faccio una previsione del futuro in base alla velocita corrente
@@ -76,13 +94,23 @@ public abstract class Entity extends RectangleP {
 				if(this.y < block.getY()) {
 					grounded = true;
 					friction = block.getFriction();
-					this.jumpPower = DEFAULT_JUMP_POWER - DEFAULT_JUMP_POWER * block.getJumpDeficit(); // non so perche non va
+					this.jumpPower = DEFAULT_JUMP_POWER - DEFAULT_JUMP_POWER * block.getJumpDeficit();
+					this.maxSpeedX = DEFAULT_LIMIT_SPEED_X - DEFAULT_LIMIT_SPEED_X * block.getSpeedDeficit();
+					setAnimationsSpeed(Math.round(Util.interpolate(DEFAULT_ANIMATION_DELAY, MAXIMUM_ANIMATION_DELAY, block.getSpeedDeficit())));
 				}
 				vel.setY(0);
 			}
 		}
 		this.setX(hitBox.getX());
 		this.setY(hitBox.getY());
+	}
+	
+	private void setAnimationsSpeed(int f) {
+		for(int i = 0; i < animations.length; i++) {
+			if(animations[i].getDelay() != -1) {
+				animations[i].setDelay(f);
+			}
+		}
 	}
 
 	public float getFriction() {

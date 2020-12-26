@@ -12,6 +12,7 @@ import util.Vector2d;
 
 public class Player extends Entity {
 	
+	
 	//GameLevelLoader COLOR
 	public static final Color COLOR = Color.BLACK;
 
@@ -27,10 +28,6 @@ public class Player extends Entity {
 	private int img_y; // queste coordinate vengono aggiornate ogni frame in base alle coordinate
 						// dell'HITBOX,
 						// la quale dipende dalle coordinate 'x' e 'y'
-	private static final float LIMIT_SPEED_Y = 15;
-	private static final float LIMIT_SPEED_X = 5;
-	private static final float MINIMUM_SPEED_X = .01f;
-	private static final float MINIMUM_SPEED_Y = .01f;
 	private float x_acc = 1f;
 	
 	private float air_friction = .3f;
@@ -39,7 +36,6 @@ public class Player extends Entity {
 
 	// Animation things
 	private final int NUM_ANIMATION = 4; // right, left, idle_right, idle_left
-	private int animationDuration = 8;
 	private int noAnimation = -1;
 	public static final int RIGHT = 0;
 	public static final int LEFT = 1;
@@ -50,13 +46,11 @@ public class Player extends Entity {
 
 	private int currentAnimation = IDLE_RIGHT;
 
-	private Animation[] animations;
-
 	public Player(LevelState gs, int x, int y, int ID) {
 		super(gs, x + IMG_WIDTH * 1 / 8, y + IMG_HEIGHT * 1 / 16, WIDTH, HEIGHT, ID);
 		img_x = x;
 		img_y = y;
-		vel.setLimit(LIMIT_SPEED_X, LIMIT_SPEED_Y);
+		vel.setLimit(DEFAULT_LIMIT_SPEED_X, DEFAULT_LIMIT_SPEED_Y);
 		sprite = Assets.PLAYER;
 		initializeAnimations();
 	}
@@ -71,8 +65,8 @@ public class Player extends Entity {
 		//checkGroundedAndChangeFriction();
 		vel.addY(g);
 		accelerateX(currentAnimation);
-		if(Math.abs(vel.getY()) < MINIMUM_SPEED_X) vel.setY(0);
-		if(Math.abs(vel.getX()) < MINIMUM_SPEED_Y) vel.setX(0);
+		if(Math.abs(vel.getY()) < DEFAULT_MINIMUM_SPEED_X) vel.setY(0);
+		if(Math.abs(vel.getX()) < DEFAULT_MINIMUM_SPEED_Y) vel.setX(0);
 		animations[currentAnimation].update();
 		//Vector2d.centerCameraOn(this);
 		//debug();
@@ -107,12 +101,12 @@ public class Player extends Entity {
 	public void accelerateX(int direction) {
 		if (direction == RIGHT) { // in base alla direzione accellero il player verso di essa in base all'attrito
 			vel.addX(x_acc * (grounded ? friction : air_friction));
-			if (vel.getX() > LIMIT_SPEED_X)
-				vel.setX(LIMIT_SPEED_X);
+			if (vel.getX() > maxSpeedX)
+				vel.setX(maxSpeedX);
 		} else if (direction == LEFT) {
 			vel.addX(-x_acc * (grounded ? friction : air_friction));
-			if (vel.getX() < -LIMIT_SPEED_X)
-				vel.setX(-LIMIT_SPEED_X);
+			if (vel.getX() < -maxSpeedX)
+				vel.setX(-maxSpeedX);
 		} else if (direction == GENERAL_IDLE || direction == IDLE_LEFT || direction == IDLE_RIGHT) { // il player si deve fermare, quindi l'accellerazione contrasta la velocità
 			if (vel.getX() > 0) { // del player, mantenendo sempre la 'friction' del blocco su cui si trova
 				vel.addX(-x_acc * (grounded ? friction : air_friction));
@@ -146,8 +140,8 @@ public class Player extends Entity {
 
 	private void initializeAnimations() {
 		animations = new Animation[NUM_ANIMATION];
-		animations[RIGHT] = new Animation(sprite.getSpriteArray(RIGHT), animationDuration);
-		animations[LEFT] = new Animation(sprite.getSpriteArray(LEFT), animationDuration);
+		animations[RIGHT] = new Animation(sprite.getSpriteArray(RIGHT), DEFAULT_ANIMATION_DELAY);
+		animations[LEFT] = new Animation(sprite.getSpriteArray(LEFT), DEFAULT_ANIMATION_DELAY);
 		animations[IDLE_RIGHT] = new Animation(sprite.getSpriteArray(IDLE_RIGHT), noAnimation);
 		animations[IDLE_LEFT] = new Animation(sprite.getSpriteArray(IDLE_LEFT), noAnimation);
 	}

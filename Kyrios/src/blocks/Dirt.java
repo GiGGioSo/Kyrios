@@ -8,25 +8,27 @@ import states.LevelState;
 import util.Vector2d;
 
 public class Dirt extends Block {
-	
+
 	public static final Color COLOR = Color.GREEN;
-	
+
 	public static final float FRICTION = .7f;
-	
+
 	public static int WIDTH = SIZE;
 	public static int HEIGHT = SIZE;
 
 	public Dirt(LevelState ls, Vector2d pos, BufferedImage texture) {
 		this(ls, (int) pos.getX(), (int) pos.getY(), texture);
 	}
-	
+
 	public Dirt(LevelState ls, int x, int y, BufferedImage texture) {
 		super(ls, x, y, WIDTH, HEIGHT, FRICTION, texture);
 		jumpDeficit = 0f;
+		speedDeficit = .1f;
 	}
 
 	@Override
-	public void update() { }
+	public void update() {
+	}
 
 	@Override
 	public void draw(Graphics2D g) {

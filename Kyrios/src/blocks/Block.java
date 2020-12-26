@@ -17,6 +17,7 @@ public abstract class Block extends RectangleP {
 	protected float friction;
 	
 	protected float jumpDeficit;
+	protected float speedDeficit;
 
 	protected Sprite sprite;
 
@@ -43,5 +44,9 @@ public abstract class Block extends RectangleP {
 	
 	public float getJumpDeficit() {
 		return jumpDeficit;
+	}
+	
+	public float getSpeedDeficit() {
+		return speedDeficit;
 	}
 }

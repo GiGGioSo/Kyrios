@@ -31,7 +31,10 @@ public class Animation {
 		timesPlayed = 0;
 	}
 	
-	public void setDelay(int delay) { this.delay = delay; }
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+	
 	public void setCurrentFrame(int currentFrame) { this.currentFrame = currentFrame; }
 	
 	public void update() {
@@ -40,7 +43,7 @@ public class Animation {
 		} else {
 			counter++;
 			
-			if(counter == delay) {
+			if(counter >= delay) {
 				currentFrame++;
 				counter = 0;
 			}
