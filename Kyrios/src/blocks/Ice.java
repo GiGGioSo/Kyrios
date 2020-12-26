@@ -22,7 +22,7 @@ public class Ice extends Block {
 
 	public Ice(LevelState ls, int x, int y, BufferedImage texture) {
 		super(ls, x, y, WIDTH, HEIGHT, FRICTION, texture);
-		jumpPercentageDeficit = 0;
+		jumpDeficit = 0f;
 	}
 
 	@Override
