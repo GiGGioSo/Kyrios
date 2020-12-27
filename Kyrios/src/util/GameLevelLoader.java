@@ -35,14 +35,6 @@ public class GameLevelLoader {
 
 	public void loadLevel(LevelState ls) {
 		int entityCounter = 0;
-//		for (int x = 0; x < width; x++) {
-//			for (int y = 0; y < height; y++) {
-//				if (colorMap[x][y].equals(Color.BLACK)) {
-//					ls.addEntity(new Player(ls, x * Block.SIZE, y * Block.SIZE, entityCounter));
-//					entityCounter++;
-//				}
-//			}
-//		}
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (colorMap[x][y].equals(Color.WHITE))
