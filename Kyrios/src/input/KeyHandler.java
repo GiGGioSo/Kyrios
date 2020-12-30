@@ -17,6 +17,8 @@ public class KeyHandler implements KeyListener{
 	public Key o = new Key();
 	public Key p = new Key();
 	public Key y = new Key();
+	public Key q = new Key();
+	public Key r = new Key();
 	public Key space = new Key();
 	public Key esc = new Key();
 	public Key shift = new Key();
@@ -46,6 +48,8 @@ public class KeyHandler implements KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_O) { o.toggle(pressed); }
 		if(e.getKeyCode() == KeyEvent.VK_P) { p.toggle(pressed); }
 		if(e.getKeyCode() == KeyEvent.VK_Y) { y.toggle(pressed); }
+		if(e.getKeyCode() == KeyEvent.VK_Q) { q.toggle(pressed); }
+		if(e.getKeyCode() == KeyEvent.VK_R) { r.toggle(pressed); }
 		if(e.getKeyCode() == KeyEvent.VK_SPACE) { space.toggle(pressed); }
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) { esc.toggle(pressed); }
 		if(e.getKeyCode() == KeyEvent.VK_SHIFT) { shift.toggle(pressed); }

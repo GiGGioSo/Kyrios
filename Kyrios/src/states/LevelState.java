@@ -20,6 +20,10 @@ public class LevelState extends GameState {
 
 	protected MiniMap map;
 	
+	protected int timeBeforeChangingPlayer = 120;
+	private int waitingForChange = 0;
+	private boolean canChange = false;
+	
 	protected InGameMenu menu;
 	
 	protected GameLevelLoader gll;
@@ -55,6 +59,13 @@ public class LevelState extends GameState {
 			}
 			eliminatePlayers();
 			map.update();
+			
+			
+			if(waitingForChange < timeBeforeChangingPlayer) {
+				waitingForChange++;
+			} else {
+				canChange = true;
+			}
 			
 			if(entities.size() == 1) { // Aggiungere il GAMEOVER STATE
 				if(LEVEL == 1) {
@@ -94,16 +105,17 @@ public class LevelState extends GameState {
 				if (entities.get(i) != null)
 					entities.get(i).input(mouse, key);
 			}
-			
-			if(key.p.clicked) { // MOMENTANEO
-				gsm.deleteState(GameStateManager.L1.ID);
-				gsm.createState(GameStateManager.MENU.ID);
-			}
 	
 			if (key.shift.down)
 				map.setVisible(true);
 			else
 				map.setVisible(false);
+			
+			if (key.q.down && !key.r.down) {
+				changeMainPlayer(-1);
+			} else if (!key.q.down && key.r.down) {
+				changeMainPlayer(1);
+			}
 			
 			if(key.esc.clicked) {
 				menu.setOn();
@@ -117,6 +129,16 @@ public class LevelState extends GameState {
 		}
 		
 	}
+
+	private void reOrganizePlayers(int n) { // reimposto gli ID dei player per non avere dei buchi
+		for(int i = 0; i < entities.size(); i++) {
+			if(entities.get(i).ID > n) {
+				if(entities.get(i).ID == mainPlayer) mainPlayer--;
+				entities.get(i).ID--;
+			}
+		}
+		entities.trimToSize();
+	}
 	
 	protected void eliminatePlayers() {
 		for (int i = 0; i < entities.size() - 1; i++) {
@@ -125,13 +147,42 @@ public class LevelState extends GameState {
 					if (entities.get(i).equals(entities.get(j))) {
 						if (entities.get(i).ID == mainPlayer) {
 							entities.remove(j);
+							reOrganizePlayers(j);
 						} else {
 							entities.remove(i);
+							reOrganizePlayers(i);
 						}
 						break;
 					}
 				}
 			}
+		}
+	}
+	
+	public int getMainPlayer() {
+		return mainPlayer;
+	}
+	
+	public void changeMainPlayer(int n) { //se n > 0 allora il player incrementa, se n < 0 allora decrementa
+		if(!canChange) return;
+		if(n > 0) {
+			if(mainPlayer < entities.size() - 1) {
+				mainPlayer++;
+			}
+			else if(mainPlayer == entities.size() - 1){
+				mainPlayer = 0;
+			}
+			waitingForChange = 0;
+			canChange = false;
+		} else if (n < 0) {
+			if(mainPlayer > 0) {
+				mainPlayer--;
+			}
+			else if(mainPlayer == 0){
+				mainPlayer = entities.size() - 1;
+			}
+			waitingForChange = 0;
+			canChange = false;
 		}
 	}
 
