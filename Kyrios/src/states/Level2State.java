@@ -7,11 +7,12 @@ import input.MouseHandler;
 import main.GamePanel;
 import ui.InGameMenu;
 import ui.MiniMap;
+import util.User;
 
 public class Level2State extends LevelState {
 
-	public Level2State(GameStateManager gsm) {
-		super(gsm);
+	public Level2State(GameStateManager gsm, User user) {
+		super(gsm, user);
 		LEVEL = 2;
 		createLevel(LEVEL);
 		gll.loadLevel(this);

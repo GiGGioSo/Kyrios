@@ -12,6 +12,7 @@ import main.GamePanel;
 import ui.InGameMenu;
 import ui.MiniMap;
 import util.GameLevelLoader;
+import util.User;
 import util.Vector2d;
 
 public class LevelState extends GameState {
@@ -33,8 +34,8 @@ public class LevelState extends GameState {
 	protected ArrayList<Entity> entities = new ArrayList<>();
 	protected ArrayList<Block> blocks = new ArrayList<>();
 	
-	public LevelState(GameStateManager gsm) {
-		super(gsm);
+	public LevelState(GameStateManager gsm, User user) {
+		super(gsm, user);
 	}
 
 	protected void createLevel(int level) {

@@ -7,14 +7,15 @@ import input.KeyHandler;
 import input.MouseHandler;
 import main.GamePanel;
 import util.Assets;
+import util.User;
 
 public class MenuState extends GameState {
 	
 	private Button play;
 	private Button levels;
 
-	public MenuState(GameStateManager gsm) {
-		super(gsm);
+	public MenuState(GameStateManager gsm, User user) {
+		super(gsm, user);
 		createButtons();
 		allButtonsUnpressed();
 		delay = 0;

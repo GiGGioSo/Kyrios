@@ -8,6 +8,7 @@ import input.KeyHandler;
 import input.MouseHandler;
 import main.GamePanel;
 import util.Assets;
+import util.User;
 
 public class LevelSelectorState extends GameState {
 
@@ -22,8 +23,8 @@ public class LevelSelectorState extends GameState {
 	
 	private BufferedImage current_preview;
 
-	public LevelSelectorState(GameStateManager gsm) {
-		super(gsm);
+	public LevelSelectorState(GameStateManager gsm, User user) {
+		super(gsm, user);
 		createButtons();
 		allButtonsUnpressed();
 		delay = 0;

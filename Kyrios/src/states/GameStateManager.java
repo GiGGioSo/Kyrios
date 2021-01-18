@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 
 import input.KeyHandler;
 import input.MouseHandler;
+import main.GamePanel;
 import util.Assets;
+import util.User;
 
 public class GameStateManager {
 
@@ -70,13 +72,18 @@ public class GameStateManager {
 	public static States MENU = States.MENU;
 	public static States LSELECTOR = States.LEVELSELECTOR;
 
+	GamePanel gp;
+	
 	GameState[] states;
+	
+	User user;
 
-	public GameStateManager() {
+	public GameStateManager(GamePanel gp) {
+		this.gp = gp;
 		Assets.loadSprites();
 		states = new GameState[4];
 
-		states[MENU.ID] = new MenuState(this);
+		states[MENU.ID] = new MenuState(this, user);
 	}
 
 	public void update() {
@@ -110,16 +117,16 @@ public class GameStateManager {
 	public void createState(int i) {
 		if (i == L1.ID) {
 			if (states[L1.ID] == null)
-				states[L1.ID] = new Level1State(this);
+				states[L1.ID] = new Level1State(this, user);
 		} else if (i == L2.ID) {
 			if (states[L2.ID] == null)
-				states[L2.ID] = new Level2State(this);
+				states[L2.ID] = new Level2State(this, user);
 		} else if (i == MENU.ID) {
 			if (states[MENU.ID] == null)
-				states[MENU.ID] = new MenuState(this);
+				states[MENU.ID] = new MenuState(this, user);
 		} else if (i == LSELECTOR.ID) {
 			if (states[LSELECTOR.ID] == null)
-				states[LSELECTOR.ID] = new LevelSelectorState(this);
+				states[LSELECTOR.ID] = new LevelSelectorState(this, user);
 		}
 	}
 
@@ -137,6 +144,14 @@ public class GameStateManager {
 			if (states[LSELECTOR.ID] != null)
 				states[LSELECTOR.ID] = null;
 		}
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public GamePanel getPanel() {
+		return gp;
 	}
 
 }
