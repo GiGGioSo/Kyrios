@@ -14,7 +14,8 @@ public class GameStateManager {
 		LEVEL1			(0, true), 
 		LEVEL2			(1, true), 
 		LEVELSELECTOR	(2, true), 
-		MENU			(3, true);
+		MENU			(3, true),
+		LOGIN			(4, true);
 
 		public int ID;
 		public boolean toUpdate;
@@ -49,6 +50,10 @@ public class GameStateManager {
 				LEVELSELECTOR.toUpdate = u;
 				LEVELSELECTOR.toDraw = d;
 				LEVELSELECTOR.toInput = i;
+			} else if (x == LOGIN.ID) {
+				LOGIN.toUpdate = u;
+				LOGIN.toDraw = d;
+				LOGIN.toInput = i;
 			}
 		}
 
@@ -61,6 +66,8 @@ public class GameStateManager {
 				return MENU;
 			} else if (i == LEVELSELECTOR.ID) {
 				return LEVELSELECTOR;
+			} else if (i == LOGIN.ID) {
+				return LOGIN;
 			}
 
 			return null;
@@ -71,6 +78,7 @@ public class GameStateManager {
 	public static States L2 = States.LEVEL2;
 	public static States MENU = States.MENU;
 	public static States LSELECTOR = States.LEVELSELECTOR;
+	public static States LOGIN = States.LOGIN;
 
 	GamePanel gp;
 	
@@ -81,9 +89,10 @@ public class GameStateManager {
 	public GameStateManager(GamePanel gp) {
 		this.gp = gp;
 		Assets.loadSprites();
-		states = new GameState[4];
+		states = new GameState[5];
 
-		states[MENU.ID] = new MenuState(this, user);
+		//states[MENU.ID] = new MenuState(this, user);
+		states[LOGIN.ID] = new RegistrationState(this);
 	}
 
 	public void update() {
