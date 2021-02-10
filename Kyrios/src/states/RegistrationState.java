@@ -2,6 +2,7 @@ package states;
 
 import java.awt.Graphics2D;
 
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import graphics.Button;
@@ -14,6 +15,8 @@ import util.User;
 public class RegistrationState extends GameState{
 	
 	User user;
+	
+	JPanel panel;
 	
 	JTextField usernameField;
 	Button enter;
