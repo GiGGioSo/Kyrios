@@ -101,8 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
 				lastUpdateTime = now - TBU;
 			}
 			input(mouse, key);
-			draw();
-			drawToScreen();
+			repaint();
 			lastRenderTime = now;
 			frameCount++;
 			FRAMES++;
@@ -137,16 +136,22 @@ public class GamePanel extends JPanel implements Runnable {
 		key.tick();
 		gsm.update();
 	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		draw((Graphics2D) g);
+	}
 
-	private void draw() {
+	private void draw(Graphics2D g) {
 		g.setColor(new Color(100, 100, 250));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
+		// vv Render everything here vv
+		
 		gsm.draw(g);
 		
-	}
-
-	private void drawToScreen() {
+		// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0, null);
 		g2.dispose();
