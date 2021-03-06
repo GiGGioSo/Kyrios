@@ -16,6 +16,9 @@ import states.GameStateManager;
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable {
 
+	// Paths
+	public static final String SAVE_PATH = "C:\\dev\\KyriosSaves";
+	
 	// Dimension
 	public static final int WIDTH = 960;
 	public static final int HEIGHT = 720;
