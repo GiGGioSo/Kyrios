@@ -1,7 +1,6 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -44,7 +43,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Image
 	private BufferedImage image;
-	private Graphics2D g;
 	
 	//Input handlers
 	private MouseHandler mouse;
@@ -76,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 		mouse = new MouseHandler(this);
 		
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		g = (Graphics2D) image.getGraphics();
+		//g = (Graphics2D) image.getGraphics();
 		
 		gsm = new GameStateManager(this);
 	}
